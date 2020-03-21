@@ -6,17 +6,24 @@ import org.junit.Test;
 
 public class ParkingLot_Test {
 
+    ParkingSystem parkingSystem = null;
+
+    @Before
+    public void setUp(){
+        parkingSystem = new ParkingSystem();
+    }
+
     @Test
     public void givenVehicle_AfterParked_ShouldReturnTrue() {
-        ParkingSystem parkingSystem = new ParkingSystem();
-        boolean isPark = parkingSystem.park(new Object());
-        Assert.assertTrue(isPark);
+        boolean isParked = parkingSystem.park(new Object());
+        Assert.assertTrue(isParked);
     }
 
     @Test
     public void givenVehicle_AfterUnParked_ShouldReturnTrue() {
-        ParkingSystem parkingSystem = new ParkingSystem();
-        boolean isUnPark = parkingSystem.unPark(new Object());
+        Object vehicle = new Object();
+        parkingSystem.park(vehicle);
+        boolean isUnPark = parkingSystem.unPark(vehicle);
         Assert.assertTrue(isUnPark);
     }
 }
