@@ -7,6 +7,11 @@ public class parkingLotSecurity implements ParkingLotObserver  {
         isFullCapacity = true;
     }
 
+    @Override
+    public void lotIsAvailable() {
+        isFullCapacity = false;
+    }
+
     public boolean isCapacityFull() {
         return this.isFullCapacity;
     }
