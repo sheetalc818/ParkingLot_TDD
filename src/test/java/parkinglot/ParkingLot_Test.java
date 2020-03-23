@@ -17,22 +17,36 @@ public class ParkingLot_Test {
 
     @Test
     public void givenVehicle_AfterParked_ShouldReturnTrue() {
-        boolean isParked = parkingSystem.park(vehicle);
-        Assert.assertTrue(isParked);
+        boolean isParked = false;
+        try {
+            parkingSystem.park(vehicle);
+            isParked = parkingSystem.isVehicleParked(vehicle);
+            Assert.assertTrue(isParked);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void givenVehicle_WhenAlreadyParked_ShouldReturnFalse() {
-        parkingSystem.park(vehicle);
-        boolean isParked = parkingSystem.park(vehicle);
-        Assert.assertFalse(isParked);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking Lot is full",e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void givenVehicle_AfterUnParked_ShouldReturnTrue() {
-        parkingSystem.park(vehicle);
-        boolean isUnPark = parkingSystem.unPark(vehicle);
-        Assert.assertTrue(isUnPark);
+        try {
+            parkingSystem.park(vehicle);
+            boolean isUnPark = parkingSystem.unPark(vehicle);
+            Assert.assertTrue(isUnPark);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
