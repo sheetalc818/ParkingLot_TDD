@@ -1,31 +1,54 @@
 package parkinglot;
 
-public class ParkingSystem {
-    private Object vehicle;
+import java.util.ArrayList;
+import java.util.List;
 
-    public ParkingSystem() {
+public class ParkingSystem {
+    private int currentCapacity;
+    private int actualCapacity;
+
+    private Object vehicle;
+    private ParkingLotOwner parkingLotOwner;
+    public List vehicles;
+
+    public ParkingSystem(int capacity) {
+        vehicles = new ArrayList();
+        this.currentCapacity = 0;
+        this.actualCapacity = capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.actualCapacity = capacity;
     }
 
     public void park(Object vehicle) throws ParkingLotException {
-        if (this.vehicle != null)
+        if (this.vehicles.size() == this.actualCapacity) {
+            parkingLotOwner.capacityIsFull();
             throw new ParkingLotException("Parking Lot is full");
-        this.vehicle = vehicle;
+        }
+
+        if (isVehicleParked(vehicle)){
+            throw new ParkingLotException("Vehicle is already parked");
+        }
+        this.vehicles.add(vehicle);
     }
 
     public boolean isVehicleParked(Object vehicle) {
-        if (this.vehicle.equals(vehicle))
+        if (this.vehicles.contains(vehicle))
             return true;
         return false;
     }
 
     public boolean unPark(Object vehicle) {
-        if (vehicle == null){
-            return false;
-        }
-        if (this.vehicle.equals(vehicle)) {
+        if (vehicle == null) return false;
+        if (this.vehicles.contains(vehicle)) {
             this.vehicle = null;
             return true;
         }
         return false;
+    }
+
+    public void registerOwner(ParkingLotOwner parkingLotOwner) {
+        this.parkingLotOwner = parkingLotOwner;
     }
 }
