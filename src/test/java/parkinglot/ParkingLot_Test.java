@@ -54,7 +54,7 @@ public class ParkingLot_Test {
     @Test
     public void givenWhenParkingLotIfFull_ShouldInformTheOwner() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
-        parkingSystem.registerOwner(parkingLotOwner);
+        parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(new Object());
@@ -74,5 +74,19 @@ public class ParkingLot_Test {
             boolean isParked2 = parkingSystem.isVehicleParked(vehicle2);
             Assert.assertTrue(isParked1 && isParked2);
         }catch (Exception e){}
+    }
+
+    @Test
+    public void givenWhenParkingLotIsFull_ShouldInformTheSecurity() {
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        parkingSystem.registerParkingLotObserver(parkingLotOwner);
+        parkingLotSecurity parkingLotSecurity = new parkingLotSecurity();
+        parkingSystem.registerParkingLotObserver(parkingLotSecurity);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+        } catch (ParkingLotException e) { }
+        boolean capacityFull = parkingLotSecurity.isCapacityFull();
+        Assert.assertTrue(capacityFull);
     }
 }
