@@ -8,10 +8,11 @@ public class ParkingSystem {
     private int actualCapacity;
 
     private Object vehicle;
-    private ParkingLotOwner parkingLotOwner;
     public List vehicles;
+    public List<ParkingLotObserver> observers;
 
     public ParkingSystem(int capacity) {
+        this.observers = new ArrayList<>();
         vehicles = new ArrayList();
         this.currentCapacity = 0;
         this.actualCapacity = capacity;
@@ -21,9 +22,15 @@ public class ParkingSystem {
         this.actualCapacity = capacity;
     }
 
+    public void registerParkingLotObserver(ParkingLotObserver observer) {
+        this.observers.add(observer);
+    }
+
     public void park(Object vehicle) throws ParkingLotException {
         if (this.vehicles.size() == this.actualCapacity) {
-            parkingLotOwner.capacityIsFull();
+            for (ParkingLotObserver observer : observers){
+                observer.capacityIsFull();
+            }
             throw new ParkingLotException("Parking Lot is full");
         }
 
@@ -46,9 +53,5 @@ public class ParkingSystem {
             return true;
         }
         return false;
-    }
-
-    public void registerOwner(ParkingLotOwner parkingLotOwner) {
-        this.parkingLotOwner = parkingLotOwner;
     }
 }
