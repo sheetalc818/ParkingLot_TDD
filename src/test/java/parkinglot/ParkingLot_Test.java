@@ -184,4 +184,28 @@ public class ParkingLot_Test {
         boolean vehiclePark = parkingSystem.isVehicleParked(vehicle);
         Assert.assertTrue(vehiclePark);
     }
+
+    //UC-7
+    @Test
+    public void givenAVehicle_WhenVehicleIsFound_ShouldReturnVehicleParkingSlotNumber() {
+        int slotNumber = 0;
+        try {
+            parkingSystem.park(new Object());
+            parkingSystem.park(vehicle);
+            slotNumber = parkingSystem.findVehicle(vehicle);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(0, slotNumber);
+    }
+
+    @Test
+    public void givenAVehicle_WhenVehicleNotFound_ShouldThrowException() {
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.findVehicle(new Object());
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking Lot is full",e.getMessage());
+        }
+    }
 }
