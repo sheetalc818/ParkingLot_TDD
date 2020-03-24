@@ -1,7 +1,12 @@
 package parkinglot;
 
 public class ParkingLotException extends Exception {
-    public ParkingLotException(String message) {
+    public enum ExceptionType {
+        VEHICLE_NOT_FOUND,PARKING_LOT_FULL
+    }
+    public ExceptionType type;
+
+    public ParkingLotException(String message, ExceptionType vehicleNotFound) {
         super(message);
     }
 }
