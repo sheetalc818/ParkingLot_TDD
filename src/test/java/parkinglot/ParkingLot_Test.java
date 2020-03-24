@@ -37,7 +37,7 @@ public class ParkingLot_Test {
         }
     }
 
-    ////Usecase -2
+    //Usecase -2
     @Test
     public void givenVehicle_AfterUnParked_ShouldReturnTrue() {
         try {
@@ -54,6 +54,16 @@ public class ParkingLot_Test {
         Assert.assertFalse(isUnPark);
     }
 
+    @Test
+    public void givenVehicle_WhenVehicleNotFound_ShouldThrowVehicleNotFoundException() {
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.findVehicle(new Object());
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Vehicle not found",e.getMessage());
+        }
+    }
+
     //Usecase -3
     @Test
     public void givenWhenParkingLotIfFull_ShouldInformTheOwner() {
@@ -68,7 +78,6 @@ public class ParkingLot_Test {
         Assert.assertTrue(capacityFull);
     }
 
-    //Usecase -3
     @Test
     public void givenCapacityIs2_OwnerShouldAbleToPark2Vehicles() {
         Object vehicle2 = new Object();
@@ -128,6 +137,4 @@ public class ParkingLot_Test {
         parkingSystem.unPark(vehicle);
         Assert.assertFalse(airportSecurity.isCapacityFull());
     }
-
-
 }
