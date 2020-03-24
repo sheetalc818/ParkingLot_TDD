@@ -4,14 +4,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingLot_Test {
 
-    ParkingSystem parkingSystem = null;
+    ParkingLotSystem parkingSystem = null;
     Object vehicle = null;
 
     @Before
     public void setUp() {
-        parkingSystem = new ParkingSystem(1);
+        parkingSystem = new ParkingLotSystem(2);
         vehicle = new Object();
     }
 
@@ -136,5 +139,49 @@ public class ParkingLot_Test {
         }
         parkingSystem.unPark(vehicle);
         Assert.assertFalse(airportSecurity.isCapacityFull());
+    }
+
+    //UC-6
+
+    @Test
+    public void givenParkingLot_ShouldReturnAvailableSlots() {
+        List expectedList = new ArrayList();
+        expectedList.add(0);
+        expectedList.add(1);
+        parkingSystem.setCapacity(2);
+        parkingSystem.parkingLotInitialize();
+        ArrayList emptySlotList = parkingSystem.getEmptyParkingSlot();
+        Assert.assertEquals(expectedList, emptySlotList);
+    }
+
+    @Test
+    public void AfterParkingAndUnParkingVehicles_ShouldReturnAvailableSlots() {
+        List expectedList = new ArrayList();
+        expectedList.add(0);
+        expectedList.add(2);
+        parkingSystem.setCapacity(3);
+        try {
+            parkingSystem.park(vehicle,0);
+            parkingSystem.park(new Object(),1);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+        parkingSystem.unPark(vehicle);
+        ArrayList emptySlotList = parkingSystem.getEmptyParkingSlot();
+        Assert.assertEquals(expectedList, emptySlotList);
+    }
+
+    @Test
+    public void givenVehicleForParkingOnEmptySlot_WhenParkWithProvidedEmptySlot_ShouldReturnTrue() {
+        parkingSystem.setCapacity(10);
+        parkingSystem.parkingLotInitialize();
+        ArrayList<Integer> emptySlotList = parkingSystem.getEmptyParkingSlot();
+        try {
+            parkingSystem.park(vehicle,emptySlotList.get(0));
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+        boolean vehiclePark = parkingSystem.isVehicleParked(vehicle);
+        Assert.assertTrue(vehiclePark);
     }
 }
