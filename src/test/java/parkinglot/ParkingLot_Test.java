@@ -141,24 +141,23 @@ public class ParkingLot_Test {
         Assert.assertFalse(airportSecurity.isCapacityFull());
     }
 
-    //UC-6
-
+    //Usecase -6
     @Test
     public void givenParkingLot_ShouldReturnAvailableSlots() {
-        List expectedList = new ArrayList();
-        expectedList.add(0);
-        expectedList.add(1);
+        List vehicleList = new ArrayList();
+        vehicleList.add(0);
+        vehicleList.add(1);
         parkingSystem.setCapacity(2);
         parkingSystem.parkingLotInitialize();
         ArrayList emptySlotList = parkingSystem.getEmptyParkingSlot();
-        Assert.assertEquals(expectedList, emptySlotList);
+        Assert.assertEquals(vehicleList, emptySlotList);
     }
 
     @Test
     public void AfterParkingAndUnParkingVehicles_ShouldReturnAvailableSlots() {
-        List expectedList = new ArrayList();
-        expectedList.add(0);
-        expectedList.add(2);
+        List vehicleList = new ArrayList();
+        vehicleList.add(0);
+        vehicleList.add(2);
         parkingSystem.setCapacity(3);
         try {
             parkingSystem.park(vehicle,0);
@@ -168,7 +167,7 @@ public class ParkingLot_Test {
         }
         parkingSystem.unPark(vehicle);
         ArrayList emptySlotList = parkingSystem.getEmptyParkingSlot();
-        Assert.assertEquals(expectedList, emptySlotList);
+        Assert.assertEquals(vehicleList, emptySlotList);
     }
 
     @Test
@@ -185,7 +184,7 @@ public class ParkingLot_Test {
         Assert.assertTrue(vehiclePark);
     }
 
-    //UC-7
+    //Usecase -7
     @Test
     public void givenAVehicle_WhenVehicleIsFound_ShouldReturnVehicleParkingSlotNumber() {
         int slotNumber = 0;
@@ -207,5 +206,18 @@ public class ParkingLot_Test {
         } catch (ParkingLotException e) {
             Assert.assertEquals("Parking Lot is full",e.getMessage());
         }
+    }
+
+    //Usecase -8
+    @Test
+    public void givenAVehicle_WhenVehicleParked_ShouldReturnParkingTime() {
+        int parkingTime = 0;
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        try {
+            parkingTime = parkingSystem.park(vehicle);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(parkingLotOwner.getParkingTime(), parkingTime);
     }
 }
