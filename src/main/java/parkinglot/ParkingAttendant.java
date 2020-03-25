@@ -1,7 +1,4 @@
 package parkinglot;
-
-import javax.lang.model.util.Types;
-import java.sql.Struct;
 import java.util.List;
 
 public class ParkingAttendant implements ParkingLotObserver {
@@ -19,6 +16,11 @@ public class ParkingAttendant implements ParkingLotObserver {
     @Override
     public void lotIsAvailable() {
         isFullCapacity = false;
+    }
+
+    @Override
+    public void setParkingTime(int minute) {
+
     }
 
     public boolean isCapacityFull() {

@@ -1,5 +1,6 @@
 package parkinglot;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -41,7 +42,7 @@ public class ParkingLotSystem {
         return false;
     }
 
-    public void park(Object vehicle,int... slots) throws ParkingLotException {
+    public int park(Object vehicle,int... slots) throws ParkingLotException {
         if (isVehicleParked(vehicle)) {
             throw new ParkingLotException("Vehicle is already parked", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
         }
@@ -53,6 +54,8 @@ public class ParkingLotSystem {
         }
         this.vehicles.add(vehicle);
         getParkingLocation(vehicle,slots);
+        observers.get(0).setParkingTime(LocalDateTime.now().getMinute());
+        return LocalDateTime.now().getMinute();
     }
 
     public void getParkingLocation(Object vehicle,int... slots) {
