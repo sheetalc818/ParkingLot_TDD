@@ -215,9 +215,24 @@ public class ParkingLot_Test {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         try {
             parkingTime = parkingSystem.park(vehicle);
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
-        }
+        } catch (ParkingLotException e) { }
         Assert.assertEquals(parkingLotOwner.getParkingTime(), parkingTime);
+    }
+
+    //Usecase -9
+    @Test
+    public void givenMultipleCarsLessThanActualCapacity_WhenVehiclesParkEvenly_shouldReturnFirstIndexEmpty() {
+        parkingSystem.setCapacity(5);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.unPark(vehicle);
+            parkingSystem.park(new Object());
+        } catch (ParkingLotException e) { }
+
+        Object lastEmptySlot = parkingSystem.getEmptyParkingSlot().get(0);
+        Assert.assertEquals(0, lastEmptySlot);
     }
 }
