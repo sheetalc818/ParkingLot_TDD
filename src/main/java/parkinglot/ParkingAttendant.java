@@ -9,17 +9,7 @@ public class ParkingAttendant implements ParkingLotObserver {
     private int actualCapacity;
 
     @Override
-    public void capacityIsFull() {
-        isFullCapacity = true;
-    }
-
-    @Override
-    public void lotIsAvailable() {
-        isFullCapacity = false;
-    }
-
-    @Override
-    public void setParkingTime(int minute) {
+    public void setCapacityFull() {
 
     }
 
@@ -39,7 +29,7 @@ public class ParkingAttendant implements ParkingLotObserver {
         }
         if (this.vehicles.size() == this.actualCapacity) {
             for (ParkingLotObserver observer : observers) {
-                observer.capacityIsFull();
+                observer.isCapacityFull();
             }
             throw new ParkingLotException("Parking Lot is full", ParkingLotException.ExceptionType.PARKING_LOT_FULL);
         }

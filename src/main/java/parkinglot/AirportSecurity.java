@@ -2,20 +2,11 @@ package parkinglot;
 
 public class AirportSecurity implements ParkingLotObserver  {
     boolean isFullCapacity;
-    private int parkingTime;
 
-    public void capacityIsFull() {
+
+    @Override
+    public void setCapacityFull() {
         isFullCapacity = true;
-    }
-
-    @Override
-    public void lotIsAvailable() {
-        isFullCapacity = false;
-    }
-
-    @Override
-    public void setParkingTime(int parkingTime) {
-        this.parkingTime = parkingTime;
     }
 
     public boolean isCapacityFull() {
