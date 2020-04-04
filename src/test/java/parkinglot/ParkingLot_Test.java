@@ -12,7 +12,7 @@ public class ParkingLot_Test
 
     @Before
     public void setUp() {
-        vehicle = new Vehicle("MH41 R1234", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
+        vehicle = new Vehicle("MH18 R1234", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
         owner = new ParkingLotOwner();
         security = new AirportSecurity();
     }
@@ -46,7 +46,7 @@ public class ParkingLot_Test
     @Test
     public void givenParkingLot_WhenUnparkingUnavailableVehicle_shouldThrowVehicleNotFoundException() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 5);
-        Vehicle vehicle1 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
+        Vehicle vehicle1 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
         try {
             parkingLotSystem.registerObserver(owner);
             parkingLotSystem.park(vehicle, new HandicapParkingStrategy());
@@ -73,7 +73,7 @@ public class ParkingLot_Test
         try {
             parkingLotSystem.registerObserver(owner);
             parkingLotSystem.park(vehicle, new NormalParkingStrategy());
-            parkingLotSystem.unPark(new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA));
+            parkingLotSystem.unPark(new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA));
         } catch (ParkingLotException e) {
             Assert.assertEquals("No Such Vehicle Available",e.getMessage());
         }
@@ -85,9 +85,9 @@ public class ParkingLot_Test
         try {
             parkingLotSystem.registerObserver(owner);
             parkingLotSystem.park(vehicle, new NormalParkingStrategy());
-            Vehicle vehicle2 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle2 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
-            parkingLotSystem.park(new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA), new NormalParkingStrategy());
+            parkingLotSystem.park(new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA), new NormalParkingStrategy());
         } catch (ParkingLotException e) {
             Assert.assertEquals("Parking lot is full", e.getMessage());
         }
@@ -126,8 +126,8 @@ public class ParkingLot_Test
         try {
             parkingLotSystem.registerObserver(owner);
             parkingLotSystem.park(vehicle, new NormalParkingStrategy());
-            parkingLotSystem.park(new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA), new NormalParkingStrategy());
-            parkingLotSystem.park(new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA), new NormalParkingStrategy());
+            parkingLotSystem.park(new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA), new NormalParkingStrategy());
+            parkingLotSystem.park(new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA), new NormalParkingStrategy());
             parkingLotSystem.unPark(vehicle);
         } catch (ParkingLotException e) {
         }
@@ -211,15 +211,15 @@ public class ParkingLot_Test
             parkingLotSystem.park(vehicle, new NormalParkingStrategy());
             VehicleLocation pos1 = parkingLotSystem.findMyCar(vehicle);
 
-            Vehicle vehicle2 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle2 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle2, new HandicapParkingStrategy());
             VehicleLocation pos2 = parkingLotSystem.findMyCar(vehicle2);
 
-            Vehicle vehicle3 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle3 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
             VehicleLocation pos3 = parkingLotSystem.findMyCar(vehicle3);
 
-            Vehicle vehicle4 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle4 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
             VehicleLocation pos4 = parkingLotSystem.findMyCar(vehicle4);
 
@@ -243,13 +243,13 @@ public class ParkingLot_Test
         try {
             parkingLotSystem.park(vehicle, new NormalParkingStrategy());
 
-            Vehicle vehicle2 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle2 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle2, new HandicapParkingStrategy());
 
-            Vehicle vehicle3 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle3 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle3, new LargeVehicleParkingStrategy());
 
-            Vehicle vehicle4 = new Vehicle("MH41 R6007", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle4 = new Vehicle("MH18 R6007", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle4, new LargeVehicleParkingStrategy());
 
             ArrayList<VehicleDTO> listOfVehicles = parkingLotSystem.findCarsWithColor(Vehicle.VehicleColor.WHITE, Vehicle.VehicleType.TOYOTA);
@@ -267,18 +267,42 @@ public class ParkingLot_Test
         try {
             parkingLotSystem.park(vehicle, new NormalParkingStrategy());
 
-            Vehicle vehicle2 = new Vehicle("MH41 R6007",Vehicle.VehicleColor.BLUE,Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle2 = new Vehicle("MH18 R6007",Vehicle.VehicleColor.BLUE,Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle2, new HandicapParkingStrategy());
 
-            Vehicle vehicle3 = new Vehicle("MH41 R6789", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle3 = new Vehicle("MH18 R6789", Vehicle.VehicleColor.OTHER, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
 
-            Vehicle vehicle4 = new Vehicle("MH41 R6543", Vehicle.VehicleColor.BLUE, Vehicle.VehicleType.TOYOTA);
+            Vehicle vehicle4 = new Vehicle("MH18 R6543", Vehicle.VehicleColor.BLUE, Vehicle.VehicleType.TOYOTA);
             parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
 
             ArrayList<VehicleDTO> listOfVehicles = parkingLotSystem.findCarsWithColor(Vehicle.VehicleColor.BLUE, Vehicle.VehicleType.TOYOTA);
             Assert.assertEquals(vehicle2.vehicleType,listOfVehicles.get(0).vehicleType);
             Assert.assertEquals(vehicle4.vehicleType,listOfVehicles.get(1).vehicleType);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenMultipleParkingLotsWithCars_IfBMWFound_ShouldReturnTotalNumberOfBMWCarsCount(){
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(2, 4);
+        parkingLotSystem.registerObserver(owner);
+        try {
+            parkingLotSystem.park(vehicle,new NormalParkingStrategy());
+
+            Vehicle vehicle2 = new Vehicle("MH18 R6007",Vehicle.VehicleColor.BLUE,Vehicle.VehicleType.TOYOTA);
+            parkingLotSystem.park(vehicle2, new HandicapParkingStrategy());
+
+            Vehicle vehicle3 = new Vehicle("MH18 R6007",Vehicle.VehicleColor.BLUE,Vehicle.VehicleType.BMW);
+            parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
+
+            Vehicle vehicle4 = new Vehicle("MH18 R6007",Vehicle.VehicleColor.BLUE,Vehicle.VehicleType.BMW);
+            parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
+
+            int count = parkingLotSystem.returnSameCarCount(Vehicle.VehicleColor.BLUE, Vehicle.VehicleType.BMW);
+            Assert.assertEquals(2,count);
+
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
