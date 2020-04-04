@@ -86,8 +86,22 @@ public class ParkingLotSystem
         return vehicleDTOS;
     }
 
+    public int returnSameCarCount(Vehicle.VehicleColor vehicleColor, Vehicle.VehicleType vehicleType) {
+        ArrayList<ParkingSlot> slotArrayList = new ArrayList<>();
+        for (ParkingLot lot: parkingLots ) {
+            List<ParkingSlot> parkingSlotList  = (lot.listOfOccupiedSlots).stream()
+                    .filter(slot -> slot.vehicle != null
+                            && slot.vehicle.vehicleColor == vehicleColor && slot.vehicle.vehicleType == vehicleType)
+                    .collect(Collectors.toList());
+            slotArrayList.addAll(parkingSlotList);
+        }
+        return slotArrayList.size();
+    }
+
 
     public List findEmptySlots() {
         return parkingLot.listOfOccupiedSlots;
     }
+
+
 }

@@ -7,7 +7,7 @@ public class Vehicle {
     public VehicleColor vehicleColor;
 
     public enum VehicleColor {WHITE, BLUE, OTHER}
-    public enum VehicleType {TOYOTA}
+    public enum VehicleType {TOYOTA, BMW}
 
     Vehicle(String vehicleNumberPlate, VehicleColor color, VehicleType vehicleType) {
         this.thisVehicleNumberPlate = vehicleNumberPlate;
