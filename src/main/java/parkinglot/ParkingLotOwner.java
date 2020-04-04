@@ -1,15 +1,24 @@
 package parkinglot;
 
-public class ParkingLotOwner implements ParkingLotObserver {
-    boolean isFullCapacity;
+public class ParkingLotOwner implements ParkingLotObserver{
+
+    private Boolean parkingLotIsFull =false;
 
     @Override
-    public void setCapacityFull() {
-        isFullCapacity = true;
+    public void parkingLotIsFull() {
+        parkingLotIsFull = true;
     }
 
     @Override
-    public boolean isCapacityFull() {
-        return isFullCapacity;
+    public void parkingLotIsEmpty() {
+        parkingLotIsFull = false;
+    }
+
+    public Boolean isParkingLotEmpty() {
+        return parkingLotIsFull;
+    }
+
+    public Boolean isParkingLotFull() {
+        return parkingLotIsFull;
     }
 }

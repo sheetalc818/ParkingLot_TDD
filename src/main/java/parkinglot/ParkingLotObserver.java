@@ -2,7 +2,7 @@ package parkinglot;
 
 public interface ParkingLotObserver {
 
-    void setCapacityFull();
+    public void parkingLotIsFull();
 
-    boolean isCapacityFull();
+    public void parkingLotIsEmpty();
 }

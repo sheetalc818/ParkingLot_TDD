@@ -1,19 +1,28 @@
 package parkinglot;
 
-public class ParkingSlot {
-        Object vehicle;
-        int parkedTime;
+import java.util.Objects;
 
-        public ParkingSlot(Object vehicle) {
+public class ParkingSlot {
+
+        public Integer slotPosition;
+        public Vehicle vehicle;
+        public long vehicleParkingTime;
+
+        public ParkingSlot(Integer slotPosition, Vehicle vehicle)
+        {
+            this.vehicleParkingTime = System.currentTimeMillis();
             this.vehicle = vehicle;
-            this.parkedTime = (int) ((System.currentTimeMillis() / (1000 * 60)) % 60);
+            this.slotPosition = slotPosition;
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
+        public boolean equals(Object o)
+        {
+            if (this.vehicle == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ParkingSlot that = (ParkingSlot) o;
-            return vehicle.equals(that.vehicle);
+            return vehicleParkingTime == that.vehicleParkingTime &&
+                    Objects.equals(vehicle, that.vehicle);
         }
-}
+
+    }
